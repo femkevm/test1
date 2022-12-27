@@ -1,0 +1,64 @@
+<html>
+<head>
+    <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class=" navbar-brand" href="#">Project API development Femke Van Mechelen: Tennisspelers</a>
+    
+  </nav>
+  <h2 class="text-center mt-5 mb-5">Maak een speler aan:</h2>
+  <div x-data="{
+    responsedata: null,
+    naam: null,
+    achternaam: null,
+    leeftijd: null,
+    nationaliteit: null,
+    slaghand: null,
+    async callmethod1() {
+        this.responsedata = await (await fetch('http://127.0.0.1:8000/spelers/',
+        {
+            method: 'POST',
+            body: JSON.stringify({
+               
+                voornaam: this.naam,
+                achternaam1: this.achternaam,
+                leeftijd1: this.leeftijd,
+                nationaliteit1: this.nationaliteit,
+                slaghand1: this.slaghand,
+                
+             
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })).json();
+
+        console.log(this.responsedata);
+    },
+}">
+    
+    <input type="text" x-model="naam">
+    <input type="text" x-model="achternaam">
+    <input type="number" x-model="leeftijd">
+    <input type="text" x-model="nationaliteit">
+    <input type="text" x-model="slaghand">
+    <button x-on:click="callmethod1">Call method</button>
+
+    <p>id: <strong x-text="responsedata.id"></strong></p>
+    <p>voornaam: <strong x-text="responsedata.voornaam"></strong></p>
+    <p>achternaam: <strong x-text="responsedata.achternaam"></strong></p>
+    <p>leeftijd: <strong x-text="responsedata.leeftijd1"></strong></p>
+    <p>Nationaliteit: <strong x-text="responsedata.nationaliteit1"></strong></p>
+    <p>Slaghand: <strong x-text="responsedata.slaghand1"></strong></p>
+
+
+
+
+</div>
+</body>
+</html>
